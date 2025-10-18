@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { ArrowRight, Mail, Zap, Award, TrendingUp, Code } from "lucide-react";
-import profilePhoto from "@/assets/manas-new-profile.jpg";
+import profilePhoto from "@/assets/manas-profile-latest.jpg";
 
 const HeroSection = () => {
   const scrollToSection = (id: string) => {
