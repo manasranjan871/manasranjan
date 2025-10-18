@@ -2,18 +2,24 @@ import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { ExternalLink, Cpu, Sun, Gauge } from "lucide-react";
 import solarTrackerDiagram from "@/assets/solar-tracker-diagram.jpg";
-
 const ProjectsSection = () => {
-  const technologies = [
-    { name: "Arduino UNO / ESP32", icon: Cpu },
-    { name: "LDR Sensors", icon: Gauge },
-    { name: "Servo/Stepper Motors", icon: Cpu },
-    { name: "Solar Panel", icon: Sun },
-    { name: "IoT Module", icon: Cpu },
-  ];
-
-  return (
-    <section id="projects" className="py-20 bg-gradient-hero">
+  const technologies = [{
+    name: "Arduino UNO / ESP32",
+    icon: Cpu
+  }, {
+    name: "LDR Sensors",
+    icon: Gauge
+  }, {
+    name: "Servo/Stepper Motors",
+    icon: Cpu
+  }, {
+    name: "Solar Panel",
+    icon: Sun
+  }, {
+    name: "IoT Module",
+    icon: Cpu
+  }];
+  return <section id="projects" className="py-20 bg-gradient-hero">
       <div className="container mx-auto px-4">
         <div className="max-w-6xl mx-auto">
           {/* Section Header */}
@@ -31,11 +37,7 @@ const ProjectsSection = () => {
             <div className="grid md:grid-cols-2 gap-8">
               {/* Project Image */}
               <div className="relative h-64 md:h-auto">
-                <img
-                  src={solarTrackerDiagram}
-                  alt="Dual Axis Automatic Sun Tracking Solar Panel System Diagram"
-                  className="w-full h-full object-cover"
-                />
+                <img src={solarTrackerDiagram} alt="Dual Axis Automatic Sun Tracking Solar Panel System Diagram" className="w-full h-full object-cover" />
                 <div className="absolute top-4 left-4 bg-gradient-primary px-4 py-2 rounded-full">
                   <span className="text-white font-medium text-sm">Featured Project</span>
                 </div>
@@ -70,30 +72,20 @@ const ProjectsSection = () => {
                   <div>
                     <h4 className="font-semibold text-lg mb-3">Technologies Used</h4>
                     <div className="flex flex-wrap gap-2">
-                      {technologies.map((tech, index) => (
-                        <span
-                          key={index}
-                          className="inline-flex items-center gap-2 px-3 py-2 bg-muted rounded-lg text-sm font-medium"
-                        >
+                      {technologies.map((tech, index) => <span key={index} className="inline-flex items-center gap-2 px-3 py-2 bg-muted rounded-lg text-sm font-medium">
                           <tech.icon className="h-4 w-4 text-primary" />
                           {tech.name}
-                        </span>
-                      ))}
+                        </span>)}
                     </div>
                   </div>
                 </div>
 
-                <Button className="bg-gradient-primary hover:shadow-glow transition-all">
-                  View Project Details
-                  <ExternalLink className="ml-2 h-4 w-4" />
-                </Button>
+                
               </div>
             </div>
           </Card>
         </div>
       </div>
-    </section>
-  );
+    </section>;
 };
-
 export default ProjectsSection;
