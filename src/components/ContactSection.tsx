@@ -5,6 +5,20 @@ import { Textarea } from "@/components/ui/textarea";
 import { Mail, Linkedin, Send } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { useState } from "react";
+import emailjs from "@emailjs/browser";
+import { z } from "zod";
+
+// EmailJS Configuration
+const EMAILJS_SERVICE_ID = "service_z36kfik";
+const EMAILJS_TEMPLATE_ID = "template_socn0m6";
+const EMAILJS_PUBLIC_KEY = "eY1QZjYYY15gCtYzT";
+
+// Form validation schema
+const contactSchema = z.object({
+  name: z.string().trim().min(1, "Name is required").max(100, "Name must be less than 100 characters"),
+  email: z.string().trim().email("Invalid email address").max(255, "Email must be less than 255 characters"),
+  message: z.string().trim().min(1, "Message is required").max(1000, "Message must be less than 1000 characters"),
+});
 
 const ContactSection = () => {
   const { toast } = useToast();
@@ -13,28 +27,58 @@ const ContactSection = () => {
     email: "",
     message: "",
   });
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
-    // Basic validation
-    if (!formData.name || !formData.email || !formData.message) {
+    // Validate form data
+    try {
+      const validatedData = contactSchema.parse(formData);
+      
+      setIsSubmitting(true);
+
+      // Send email via EmailJS
+      await emailjs.send(
+        EMAILJS_SERVICE_ID,
+        EMAILJS_TEMPLATE_ID,
+        {
+          from_name: validatedData.name,
+          from_email: validatedData.email,
+          message: validatedData.message,
+          to_email: "manasranjan8711@gmail.com",
+        },
+        EMAILJS_PUBLIC_KEY
+      );
+
+      // Show success message
       toast({
-        title: "Missing Information",
-        description: "Please fill in all fields",
-        variant: "destructive",
+        title: "Message Sent!",
+        description: "Thank you for reaching out. I'll get back to you soon.",
       });
-      return;
+
+      // Reset form
+      setFormData({ name: "", email: "", message: "" });
+    } catch (error) {
+      if (error instanceof z.ZodError) {
+        // Validation error
+        toast({
+          title: "Validation Error",
+          description: error.errors[0].message,
+          variant: "destructive",
+        });
+      } else {
+        // EmailJS error
+        console.error("Email send error:", error);
+        toast({
+          title: "Failed to Send",
+          description: "Something went wrong. Please try again or email me directly.",
+          variant: "destructive",
+        });
+      }
+    } finally {
+      setIsSubmitting(false);
     }
-
-    // Show success message
-    toast({
-      title: "Message Sent!",
-      description: "Thank you for reaching out. I'll get back to you soon.",
-    });
-
-    // Reset form
-    setFormData({ name: "", email: "", message: "" });
   };
 
   return (
@@ -140,8 +184,12 @@ const ContactSection = () => {
                   />
                 </div>
 
-                <Button type="submit" className="w-full bg-gradient-primary hover:shadow-glow transition-all">
-                  Send Message
+                <Button 
+                  type="submit" 
+                  className="w-full bg-gradient-primary hover:shadow-glow transition-all"
+                  disabled={isSubmitting}
+                >
+                  {isSubmitting ? "Sending..." : "Send Message"}
                   <Send className="ml-2 h-4 w-4" />
                 </Button>
               </form>
