@@ -123,7 +123,7 @@ const ContactSection = () => {
                   <div>
                     <h3 className="font-heading font-bold text-lg mb-2">LinkedIn</h3>
                     <a
-                      href="https://www.linkedin.com/in/manas-ranjan-matiary"
+                      href="https://www.linkedin.com/in/manas-ranjan-matiary-a598132b7?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app"
                       target="_blank"
                       rel="noopener noreferrer"
                       className="text-primary hover:underline"
