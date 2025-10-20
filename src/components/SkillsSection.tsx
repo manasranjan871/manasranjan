@@ -1,17 +1,18 @@
 import { Card } from "@/components/ui/card";
 import { Zap, Cpu, Gauge, Lightbulb, Users, TrendingUp } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const SkillsSection = () => {
   const technicalSkills = [
-    { name: "Electrical Systems & Power Analysis", icon: Zap, color: "bg-primary" },
-    { name: "IoT Embedded Systems", icon: Cpu, color: "bg-energy-cyan" },
-    { name: "Smart Metering", icon: Gauge, color: "bg-accent" },
+    { name: "Electrical Systems & Power Analysis", icon: Zap, color: "bg-primary", url: "/skills/electrical-systems" },
+    { name: "IoT Embedded Systems", icon: Cpu, color: "bg-energy-cyan", url: "/skills/iot-embedded" },
+    { name: "Smart Metering", icon: Gauge, color: "bg-accent", url: "/skills/smart-metering" },
   ];
 
   const softSkills = [
-    { name: "Problem Solving & Analytical Thinking", icon: Lightbulb, color: "bg-energy-green" },
-    { name: "Team Collaboration", icon: Users, color: "bg-tech-purple" },
-    { name: "Research & Innovation", icon: TrendingUp, color: "bg-primary" },
+    { name: "Problem Solving & Analytical Thinking", icon: Lightbulb, color: "bg-energy-green", url: "/skills/problem-solving" },
+    { name: "Team Collaboration", icon: Users, color: "bg-tech-purple", url: "/skills/team-collaboration" },
+    { name: "Research & Innovation", icon: TrendingUp, color: "bg-primary", url: "/skills/research-innovation" },
   ];
 
   return (
@@ -34,17 +35,16 @@ const SkillsSection = () => {
               <h3 className="font-heading text-2xl font-bold mb-6 text-center">Technical Skills</h3>
               <div className="space-y-4">
                 {technicalSkills.map((skill, index) => (
-                  <Card
-                    key={index}
-                    className="p-6 bg-card hover:shadow-lg transition-all hover:scale-105"
-                  >
-                    <div className="flex items-center gap-4">
-                      <div className={`p-3 ${skill.color} rounded-lg`}>
-                        <skill.icon className="h-6 w-6 text-white" />
+                  <Link key={index} to={skill.url}>
+                    <Card className="p-6 bg-card hover:shadow-lg transition-all hover:scale-105 cursor-pointer">
+                      <div className="flex items-center gap-4">
+                        <div className={`p-3 ${skill.color} rounded-lg`}>
+                          <skill.icon className="h-6 w-6 text-white" />
+                        </div>
+                        <p className="font-medium text-lg">{skill.name}</p>
                       </div>
-                      <p className="font-medium text-lg">{skill.name}</p>
-                    </div>
-                  </Card>
+                    </Card>
+                  </Link>
                 ))}
               </div>
             </div>
@@ -54,17 +54,16 @@ const SkillsSection = () => {
               <h3 className="font-heading text-2xl font-bold mb-6 text-center">Soft Skills</h3>
               <div className="space-y-4">
                 {softSkills.map((skill, index) => (
-                  <Card
-                    key={index}
-                    className="p-6 bg-card hover:shadow-lg transition-all hover:scale-105"
-                  >
-                    <div className="flex items-center gap-4">
-                      <div className={`p-3 ${skill.color} rounded-lg`}>
-                        <skill.icon className="h-6 w-6 text-white" />
+                  <Link key={index} to={skill.url}>
+                    <Card className="p-6 bg-card hover:shadow-lg transition-all hover:scale-105 cursor-pointer">
+                      <div className="flex items-center gap-4">
+                        <div className={`p-3 ${skill.color} rounded-lg`}>
+                          <skill.icon className="h-6 w-6 text-white" />
+                        </div>
+                        <p className="font-medium text-lg">{skill.name}</p>
                       </div>
-                      <p className="font-medium text-lg">{skill.name}</p>
-                    </div>
-                  </Card>
+                    </Card>
+                  </Link>
                 ))}
               </div>
             </div>
